@@ -1,28 +1,29 @@
+package com.wzy.servlet.class11;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "RequestServlet",urlPatterns = "/RequestServlet")
-public class RequestServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet",urlPatterns = "/LoginServlet")
+public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-
+        HttpSession session=request.getSession();
         String name=request.getParameter("username");
-        String password=request.getParameter("password");
-        System.out.print("用户名"+name);
-        System.out.print("密码"+password);
-
-
-        if(name.equals("drx")&&password.equals("123"))
+        String pass=request.getParameter("password");
+        response.getWriter().println(session.getAttribute("username"));
+        response.getWriter().println(session.getAttribute("password"));
+        if(name==session.getAttribute("username")&&pass==session.getAttribute("password")){
             response.sendRedirect("index.html");
-        else
+        }else{
             response.sendRedirect("error.html");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 }
