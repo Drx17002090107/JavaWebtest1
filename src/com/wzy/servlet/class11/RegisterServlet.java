@@ -17,13 +17,13 @@ public class RegisterServlet extends HttpServlet {
         String sex=request.getParameter("sex");
         String age=request.getParameter("age");
 
-            request.setAttribute("username",name);
-            request.setAttribute("password",pass);
+            session.setAttribute("username",name);
+            session.setAttribute("password",pass);
             request.setAttribute("sex",sex);
             request.setAttribute("age",age);
         response.getWriter().println(session.getAttribute("username"));
         response.getWriter().println(session.getAttribute("password"));
-            if(request.getAttribute("username")!=null&&request.getAttribute("password")!=null)
+            if(session.getAttribute("username")!=null&&session.getAttribute("password")!=null)
             {
                 response.sendRedirect("login.html");
             }else{
